@@ -57,34 +57,34 @@ export const SITE_IMAGES = {
 
 export const LEADER_INFO = {
   name: {
-    en: 'Nilesh Nikam',
-    hi: 'निलेश निकम',
-    mr: 'निलेश निकम',
+    en: "Adv. Nilesh Nikam",
+    hi: "ॲड. निलेश निकम",
+    mr: "ॲड. निलेश निकम",
   },
   title: {
-    en: 'Corporator',
-    hi: 'पार्षद',
-    mr: 'नगरसेवक',
+    en: "Leader of Opposition, Pune Municipal Corporation",
+    hi: "विपक्ष के नेता, पुणे महानगरपालिका",
+    mr: "विरोधी पक्ष नेता , पुणे महानगरपालिका",
   },
   tagline: {
-    en: 'Water, Roads, Education and Dignity for Every Family',
-    hi: 'हर परिवार के लिए पानी, सड़क, शिक्षा और सम्मान',
-    mr: 'प्रत्येक कुटुंबासाठी पाणी, रस्ते, शिक्षण आणि सन्मान',
+    en: "Water, Roads, Education and Dignity for Every Family",
+    hi: "हर परिवार के लिए पानी, सड़क, शिक्षा और सम्मान",
+    mr: "प्रत्येक कुटुंबासाठी पाणी, रस्ते, शिक्षण आणि सन्मान",
   },
   constituency: {
-    en: 'Pune',
-    hi: 'पुणे',
-    mr: 'पुणे',
+    en: "Pune",
+    hi: "पुणे",
+    mr: "पुणे",
   },
   party: {
-    en: 'Nationalist Congress Party',
-    hi: 'राष्ट्रवादी कांग्रेस पार्टी',
-    mr: 'राष्ट्रवादी काँग्रेस पार्टी',
+    en: "Nationalist Congress Party",
+    hi: "राष्ट्रवादी कांग्रेस पार्टी",
+    mr: "राष्ट्रवादी काँग्रेस पार्टी",
   },
   campaignBadge: {
-    en: 'People First Leadership',
-    hi: 'जनता प्रथम नेतृत्व',
-    mr: 'जनता प्रथम नेतृत्व',
+    en: "Aapla Manus",
+    hi: "आपला माणूस",
+    mr: "आपला माणूस",
   },
 };
 

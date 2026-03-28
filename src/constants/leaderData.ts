@@ -67,9 +67,9 @@ export const LEADER_INFO = {
     mr: "विरोधी पक्ष नेता , पुणे महानगरपालिका",
   },
   tagline: {
-    en: "Water, Roads, Education and Dignity for Every Family",
-    hi: "हर परिवार के लिए पानी, सड़क, शिक्षा और सम्मान",
-    mr: "प्रत्येक कुटुंबासाठी पाणी, रस्ते, शिक्षण आणि सन्मान",
+    en: "Health, Water, Roads, Education and Dignity for Every Family",
+    hi: "हर परिवार के लिए स्वास्थ्य, पानी, सड़क, शिक्षा और सम्मान",
+    mr: "प्रत्येक कुटुंबासाठी आरोग्य, पाणी, रस्ते, शिक्षण आणि सन्मान",
   },
   constituency: {
     en: "Pune",

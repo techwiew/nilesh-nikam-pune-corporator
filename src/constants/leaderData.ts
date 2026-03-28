@@ -10,8 +10,8 @@ export const LANGUAGES: { code: Language; name: string; nativeName: string }[] =
 
 export const THEME_COLORS = {
   light: {
-    pageBackground: '#f4efe4',
-    sectionBackground: '#fbf8f1',
+    pageBackground: '#ffd6e8', // baby pink background
+    sectionBackground: '#fff0f6',
     cardBackground: '#ffffff',
     textPrimary: '#2f241b',
     textSecondary: '#6a5a4e',
@@ -26,8 +26,8 @@ export const THEME_COLORS = {
     badgeBackground: '#fff0dd',
   },
   dark: {
-    pageBackground: '#16120f',
-    sectionBackground: '#201a15',
+    pageBackground: '#ffecf5', // baby pink background (dark theme mix)
+    sectionBackground: '#fce9f2',
     cardBackground: '#2a2119',
     textPrimary: '#f5ede3',
     textSecondary: '#d7c1ac',

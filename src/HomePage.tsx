@@ -216,14 +216,23 @@ export default function HomePage() {
         )}
       </nav>
 
+      <div className="relative h-[70vh] w-full overflow-hidden md:h-[80vh] lg:h-[85vh]">
+        <img
+          src="/images/profile-banner.jpg"
+          alt="Profile banner"
+          className="h-full w-full object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-black/15" />
+      </div>
+
       <section
         id="home"
-        className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 lg:px-8"
+        className="relative overflow-hidden px-4 pt-10 pb-16 sm:px-6 lg:px-10 xl:px-16"
       >
         <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-2">
           <div className="hero-fade-up">
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border-soft)] bg-[var(--badge-bg)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-[var(--brand-2)]">
-              <Sparkles className="h-4 w-4" />
+            <p className="mb-4 inline-flex items-center gap-2 rounded-full border-2 border-[var(--brand-2)] bg-[var(--badge-bg)] px-5 py-3 text-lg font-bold uppercase tracking-[0.15em] text-[var(--brand-2)] shadow-lg">
+              <Sparkles className="h-5 w-5" />
               {t(LEADER_INFO.campaignBadge)}
             </p>
             <h1 className="font-serif text-4xl font-semibold leading-tight text-[var(--text-1)] sm:text-5xl lg:text-6xl">

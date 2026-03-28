@@ -108,12 +108,19 @@ export default function HomePage() {
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--border-soft)] bg-[color:color-mix(in_srgb,var(--page-bg),transparent_8%)] backdrop-blur-lg">
         <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <button
-            className="text-left"
+            className="flex items-center gap-3 text-left"
             onClick={() => scrollToSection('home')}
             aria-label="Go to home section"
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-[var(--text-2)]">{t(LEADER_INFO.party)}</p>
-            <p className="font-serif text-lg font-semibold text-[var(--brand-2)]">{t(LEADER_INFO.name)}</p>
+            <img
+              src="/images/ncp-logo.jpg"
+              alt="NCP Logo"
+              className="h-10 w-10 rounded-full object-cover"
+            />
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-[var(--text-2)]">{t(LEADER_INFO.party)}</p>
+              <p className="font-serif text-lg font-semibold text-[var(--brand-2)]">{t(LEADER_INFO.name)}</p>
+            </div>
           </button>
 
           <div className="hidden items-center gap-1 md:flex">

@@ -2,8 +2,6 @@
 import {
   Menu,
   X,
-  Sun,
-  Moon,
   Globe,
   ChevronDown,
   Phone,
@@ -23,7 +21,6 @@ import {
   Sparkles,
   ArrowRight,
 } from 'lucide-react';
-import { useTheme } from '@/context/ThemeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
@@ -59,12 +56,11 @@ const socialLinks = [
 ];
 
 export default function HomePage() {
-  const { toggleTheme, isDark } = useTheme();
   const { language, setLanguage, t, languages } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
 
-  const palette = isDark ? THEME_COLORS.dark : THEME_COLORS.light;
+  const palette = THEME_COLORS.light;
 
   const cssVars = useMemo(
     () =>
@@ -171,17 +167,6 @@ export default function HomePage() {
               )}
             </div>
 
-            <button
-              onClick={toggleTheme}
-              className="rounded-full border border-[var(--border-soft)] p-2 text-[var(--text-2)] transition hover:bg-[var(--badge-bg)]"
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
-            </button>
           </div>
 
           <button

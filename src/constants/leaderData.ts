@@ -3,19 +3,18 @@
 export type Translation = Record<Language, string>;
 
 export const LANGUAGES: { code: Language; name: string; nativeName: string }[] = [
-  { code: 'en', name: 'English', nativeName: 'English' },
-  { code: 'hi', name: 'Hindi', nativeName: 'हिंदी' },
-  { code: 'mr', name: 'Marathi', nativeName: 'मराठी' },
+  { code: "en", name: "English", nativeName: "English" },
+  { code: "mr", name: "Marathi", nativeName: "मराठी" },
 ];
 
 export const THEME_COLORS = {
   light: {
     pageBackground: "#ffd6e8", // baby pink background
-    sectionBackground: "#fff0f6",
-    cardBackground: "#ffffff",
-    textPrimary: "#2f241b",
-    textSecondary: "#6a5a4e",
-    borderSoft: "#e8dcc8",
+    sectionBackground: "#fff7fb",
+    cardBackground: "#fffdfd",
+    textPrimary: "#1f130f",
+    textSecondary: "#3f2e26",
+    borderSoft: "#e6c6d3",
     brandPrimary: "#c66a1f",
     brandPrimaryStrong: "#9f4f12",
     brandAccent: "#0f4d3a",
@@ -23,7 +22,7 @@ export const THEME_COLORS = {
     heroGradientStart: "#f7dfc3",
     heroGradientMid: "#fff7ea",
     heroGradientEnd: "#e8f1e6",
-    badgeBackground: "#fff0dd",
+    badgeBackground: "#fff4f9",
   },
   dark: {
     pageBackground: "#ffecf5", // baby pink background (dark theme mix)
@@ -57,9 +56,9 @@ export const SITE_IMAGES = {
 
 export const LEADER_INFO = {
   name: {
-    en: "Adv. Nilesh Nikam",
+    en: "Adv. Nilesh Narayan Nikam",
     hi: "ॲड. निलेश निकम",
-    mr: "ॲड. निलेश निकम",
+    mr: "ॲड. निलेश नारायण निकम",
   },
   title: {
     en: "Leader of Opposition, Pune Municipal Corporation",

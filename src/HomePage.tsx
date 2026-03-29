@@ -1,9 +1,13 @@
-﻿import { useMemo, useState, type CSSProperties, type ElementType } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type CSSProperties,
+  type ElementType,
+} from "react";
 import {
   Menu,
   X,
-  Globe,
-  ChevronDown,
   Phone,
   Mail,
   MapPin,
@@ -20,10 +24,10 @@ import {
   CheckCircle2,
   Sparkles,
   ArrowRight,
-} from 'lucide-react';
-import { useLanguage } from '@/context/LanguageContext';
-import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
+} from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 import {
   LEADER_INFO,
   ABOUT_SECTION,
@@ -37,7 +41,7 @@ import {
   NAVIGATION_SECTIONS,
   SITE_IMAGES,
   THEME_COLORS,
-} from '@/constants/leaderData';
+} from "@/constants/leaderData";
 
 const iconMap: Record<string, ElementType> = {
   Hospital,
@@ -49,36 +53,43 @@ const iconMap: Record<string, ElementType> = {
 };
 
 const socialLinks = [
-  { label: 'Twitter', href: CONTACT_INFO.social.twitter, icon: Twitter },
-  { label: 'Facebook', href: CONTACT_INFO.social.facebook, icon: Facebook },
-  { label: 'Instagram', href: CONTACT_INFO.social.instagram, icon: Instagram },
-  { label: 'YouTube', href: CONTACT_INFO.social.youtube, icon: Youtube },
+  { label: "Twitter", href: CONTACT_INFO.social.twitter, icon: Twitter },
+  { label: "Facebook", href: CONTACT_INFO.social.facebook, icon: Facebook },
+  { label: "Instagram", href: CONTACT_INFO.social.instagram, icon: Instagram },
+  { label: "YouTube", href: CONTACT_INFO.social.youtube, icon: Youtube },
 ];
 
 export default function HomePage() {
   const { language, setLanguage, t, languages } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const selectableLanguages = useMemo(
+    () => languages.filter((lang) => lang.code === "en" || lang.code === "mr"),
+    [languages],
+  );
+  const currentLanguageIndex = Math.max(
+    selectableLanguages.findIndex((lang) => lang.code === language),
+    0,
+  );
 
   const palette = THEME_COLORS.light;
 
   const cssVars = useMemo(
     () =>
       ({
-        '--page-bg': palette.pageBackground,
-        '--section-bg': palette.sectionBackground,
-        '--card-bg': palette.cardBackground,
-        '--text-1': palette.textPrimary,
-        '--text-2': palette.textSecondary,
-        '--border-soft': palette.borderSoft,
-        '--brand-1': palette.brandPrimary,
-        '--brand-2': palette.brandPrimaryStrong,
-        '--accent': palette.brandAccent,
-        '--hero-glow': palette.heroGlow,
-        '--hero-start': palette.heroGradientStart,
-        '--hero-mid': palette.heroGradientMid,
-        '--hero-end': palette.heroGradientEnd,
-        '--badge-bg': palette.badgeBackground,
+        "--page-bg": palette.pageBackground,
+        "--section-bg": palette.sectionBackground,
+        "--card-bg": palette.cardBackground,
+        "--text-1": palette.textPrimary,
+        "--text-2": palette.textSecondary,
+        "--border-soft": palette.borderSoft,
+        "--brand-1": palette.brandPrimary,
+        "--brand-2": palette.brandPrimaryStrong,
+        "--accent": palette.brandAccent,
+        "--hero-glow": palette.heroGlow,
+        "--hero-start": palette.heroGradientStart,
+        "--hero-mid": palette.heroGradientMid,
+        "--hero-end": palette.heroGradientEnd,
+        "--badge-bg": palette.badgeBackground,
       }) as CSSProperties,
     [palette],
   );
@@ -86,11 +97,34 @@ export default function HomePage() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setMobileMenuOpen(false);
-    setLangDropdownOpen(false);
   };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!window.matchMedia("(max-width: 768px)").matches) return;
+    if (!("IntersectionObserver" in window)) return;
+
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>(".observe-icon-card"),
+    );
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.55 },
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
@@ -99,6 +133,8 @@ export default function HomePage() {
     >
       <div className="pointer-events-none fixed inset-0 -z-10 opacity-80">
         <div className="absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[var(--hero-glow)] blur-3xl" />
+        <div className="ambient-orb absolute top-1/3 -left-16 h-52 w-52 rounded-full bg-[var(--accent)]/25 blur-3xl" />
+        <div className="ambient-orb-delay absolute right-0 bottom-24 h-56 w-56 rounded-full bg-[var(--brand-1)]/20 blur-3xl" />
       </div>
 
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--border-soft)] bg-[color:color-mix(in_srgb,var(--page-bg),transparent_8%)] backdrop-blur-lg">
@@ -128,7 +164,7 @@ export default function HomePage() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="rounded-full px-4 py-2 text-sm font-medium text-[var(--text-2)] transition hover:bg-[var(--badge-bg)] hover:text-[var(--brand-2)]"
+                className="fancy-nav-link rounded-full px-4 py-2 text-sm font-medium text-[var(--text-2)] transition hover:bg-[var(--badge-bg)] hover:text-[var(--brand-2)]"
               >
                 {t(item.label)}
               </button>
@@ -136,37 +172,36 @@ export default function HomePage() {
           </div>
 
           <div className="hidden items-center gap-2 md:flex">
-            <div className="relative">
-              <button
-                onClick={() => setLangDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-2 rounded-full border border-[var(--border-soft)] px-3 py-2 text-sm text-[var(--text-2)]"
-              >
-                <Globe className="h-4 w-4" />
-                <span>
-                  {languages.find((l) => l.code === language)?.nativeName}
-                </span>
-                <ChevronDown className="h-4 w-4" />
-              </button>
-              {langDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-40 rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-1 shadow-xl">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => setLanguage(lang.code)}
-                      className={cn(
-                        "w-full rounded-xl px-3 py-2 text-left text-sm transition",
-                        language === lang.code
-                          ? "bg-[var(--badge-bg)] text-[var(--brand-2)]"
-                          : "text-[var(--text-2)] hover:bg-[var(--badge-bg)]",
-                      )}
-                    >
-                      {lang.nativeName}
-                    </button>
-                  ))}
-                </div>
-              )}
+            <div
+              role="group"
+              aria-label="Language switcher"
+              className="language-slider glass-pill relative flex items-center rounded-full border border-[var(--border-soft)] p-1"
+            >
+              <span
+                aria-hidden="true"
+                className="language-slider-indicator absolute top-1 bottom-1 z-0 rounded-full bg-[var(--badge-bg)] shadow-sm"
+                style={{
+                  width: `${100 / selectableLanguages.length}%`,
+                  transform: `translateX(${currentLanguageIndex * 100}%)`,
+                }}
+              />
+              {selectableLanguages.map((lang) => (
+                <button
+                  key={lang.code}
+                  type="button"
+                  onClick={() => setLanguage(lang.code)}
+                  aria-pressed={language === lang.code}
+                  className={cn(
+                    "language-slider-option relative z-10 cursor-pointer rounded-full px-4 py-1.5 text-sm font-medium transition",
+                    language === lang.code
+                      ? "text-[var(--brand-2)]"
+                      : "text-[var(--text-2)] hover:text-[var(--brand-2)]",
+                  )}
+                >
+                  {lang.nativeName}
+                </button>
+              ))}
             </div>
-
           </div>
 
           <button
@@ -189,21 +224,35 @@ export default function HomePage() {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block w-full rounded-xl px-3 py-2 text-left text-[var(--text-2)] hover:bg-[var(--badge-bg)]"
+                  className="fancy-nav-link block w-full rounded-xl px-3 py-2 text-left text-[var(--text-2)] hover:bg-[var(--badge-bg)]"
                 >
                   {t(item.label)}
                 </button>
               ))}
-              <div className="mt-4 grid grid-cols-2 gap-2 border-t border-[var(--border-soft)] pt-3">
-                {languages.map((lang) => (
+              <div
+                role="group"
+                aria-label="Language switcher"
+                className="language-slider glass-pill relative mt-4 flex border border-[var(--border-soft)] p-1"
+              >
+                <span
+                  aria-hidden="true"
+                  className="language-slider-indicator absolute top-1 bottom-1 z-0 rounded-lg bg-[var(--badge-bg)] shadow-sm"
+                  style={{
+                    width: `${100 / selectableLanguages.length}%`,
+                    transform: `translateX(${currentLanguageIndex * 100}%)`,
+                  }}
+                />
+                {selectableLanguages.map((lang) => (
                   <button
                     key={lang.code}
+                    type="button"
                     onClick={() => setLanguage(lang.code)}
+                    aria-pressed={language === lang.code}
                     className={cn(
-                      "rounded-xl px-3 py-2 text-sm",
+                      "language-slider-option relative z-10 flex-1 rounded-lg px-3 py-2 text-center text-sm font-medium transition",
                       language === lang.code
-                        ? "bg-[var(--badge-bg)] text-[var(--brand-2)]"
-                        : "text-[var(--text-2)]",
+                        ? "text-[var(--brand-2)]"
+                        : "text-[var(--text-2)] hover:text-[var(--brand-2)]",
                     )}
                   >
                     {lang.nativeName}
@@ -233,7 +282,7 @@ export default function HomePage() {
               <Sparkles className="h-5 w-5" />
               {t(LEADER_INFO.campaignBadge)}
             </p>
-            <h1 className="font-serif text-4xl font-semibold leading-tight text-[var(--text-1)] sm:text-5xl lg:text-6xl">
+            <h1 className="font-serif text-4xl font-semibold leading-tight text-[var(--text-1)] sm:text-3xl lg:text-4xl">
               {t(LEADER_INFO.name)}
             </h1>
             <p className="mt-3 text-lg text-[var(--brand-2)] sm:text-xl">
@@ -247,7 +296,7 @@ export default function HomePage() {
               <Button
                 onClick={() => scrollToSection("contact")}
                 size="lg"
-                className="rounded-full bg-[var(--brand-1)] px-7 text-white hover:bg-[var(--brand-2)]"
+                className="glow-button rounded-full bg-[var(--brand-1)] px-7 text-white hover:bg-[var(--brand-2)]"
               >
                 {t(UI_TEXT.sendMessage)}
               </Button>
@@ -255,7 +304,7 @@ export default function HomePage() {
                 onClick={() => scrollToSection("about")}
                 variant="outline"
                 size="lg"
-                className="rounded-full border-[var(--brand-1)] px-7 text-[var(--brand-2)] hover:bg-[var(--badge-bg)]"
+                className="glow-button rounded-full border-[var(--brand-1)] px-7 text-[var(--brand-2)] hover:bg-[var(--badge-bg)]"
               >
                 {t(UI_TEXT.readMore)}
               </Button>
@@ -265,7 +314,7 @@ export default function HomePage() {
               {HERO_STATS.map((stat) => (
                 <div
                   key={stat.value}
-                  className="rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-4"
+                  className="tilt-card rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-4"
                 >
                   <p className="text-2xl font-bold text-[var(--brand-2)]">
                     {stat.value}
@@ -279,7 +328,7 @@ export default function HomePage() {
           </div>
 
           <div className="hero-fade-up relative lg:justify-self-end">
-            <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-[2rem] border border-[var(--border-soft)] bg-[linear-gradient(140deg,var(--hero-start),var(--hero-mid),var(--hero-end))] p-3 shadow-2xl">
+            <div className="hero-tilt-card relative mx-auto w-full max-w-md overflow-hidden rounded-[2rem] border border-[var(--border-soft)] bg-[linear-gradient(140deg,var(--hero-start),var(--hero-mid),var(--hero-end))] p-3 shadow-2xl">
               <img
                 src={SITE_IMAGES.profile}
                 alt={t(LEADER_INFO.name)}
@@ -323,10 +372,10 @@ export default function HomePage() {
               return (
                 <article
                   key={issue.icon}
-                  className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="observe-icon-card tilt-card rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <div className="mb-4 inline-flex rounded-2xl bg-[var(--badge-bg)] p-3 text-[var(--brand-2)]">
-                    <IssueIcon className="h-5 w-5" />
+                  <div className="icon-chip mb-4 inline-flex rounded-2xl bg-[var(--badge-bg)] p-3 text-[var(--brand-2)]">
+                    <IssueIcon className="icon-highlight h-5 w-5" />
                   </div>
                   <h3 className="text-xl font-semibold text-[var(--text-1)]">
                     {t(issue.title)}
@@ -355,9 +404,9 @@ export default function HomePage() {
               return (
                 <article
                   key={`${achievement.icon}-${index}`}
-                  className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-6"
+                  className="observe-icon-card tilt-card rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-6"
                 >
-                  <AchievementIcon className="h-6 w-6 text-[var(--brand-2)]" />
+                  <AchievementIcon className="icon-highlight h-6 w-6 text-[var(--brand-2)]" />
                   <h3 className="mt-3 text-xl font-semibold text-[var(--text-1)]">
                     {t(achievement.title)}
                   </h3>
@@ -380,10 +429,10 @@ export default function HomePage() {
             {VISION.points.map((point, index) => (
               <div
                 key={index}
-                className="rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5"
+                className="observe-icon-card tilt-card rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5"
               >
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--brand-2)]" />
+                  <CheckCircle2 className="icon-highlight mt-0.5 h-5 w-5 shrink-0 text-[var(--brand-2)]" />
                   <p className="text-sm leading-7 text-[var(--text-2)]">
                     {t(point)}
                   </p>
@@ -406,7 +455,7 @@ export default function HomePage() {
             {GALLERY.images.map((image, index) => (
               <figure
                 key={`${image.src}-${index}`}
-                className="group relative overflow-hidden rounded-3xl border border-[var(--border-soft)]"
+                className="tilt-card group relative overflow-hidden rounded-3xl border border-[var(--border-soft)]"
               >
                 <img
                   src={image.src}
@@ -454,9 +503,9 @@ export default function HomePage() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
-                <div className="mb-2 inline-flex rounded-xl bg-[var(--badge-bg)] p-2 text-[var(--brand-2)]">
-                  <Phone className="h-4 w-4" />
+              <div className="observe-icon-card tilt-card rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
+                <div className="icon-chip mb-2 inline-flex rounded-xl bg-[var(--badge-bg)] p-2 text-[var(--brand-2)]">
+                  <Phone className="icon-highlight h-4 w-4" />
                 </div>
                 <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-2)]">
                   {t(UI_TEXT.phone)}
@@ -466,9 +515,9 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
-                <div className="mb-2 inline-flex rounded-xl bg-[var(--badge-bg)] p-2 text-[var(--brand-2)]">
-                  <Mail className="h-4 w-4" />
+              <div className="observe-icon-card tilt-card rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
+                <div className="icon-chip mb-2 inline-flex rounded-xl bg-[var(--badge-bg)] p-2 text-[var(--brand-2)]">
+                  <Mail className="icon-highlight h-4 w-4" />
                 </div>
                 <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-2)]">
                   {t(UI_TEXT.email)}
@@ -479,7 +528,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
+            <div className="observe-icon-card tilt-card rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
               <p className="mb-3 text-sm font-semibold text-[var(--text-1)]">
                 {t(UI_TEXT.followUs)}
               </p>
@@ -490,9 +539,9 @@ export default function HomePage() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-[var(--border-soft)] bg-[var(--badge-bg)] px-4 py-2 text-sm text-[var(--brand-2)]"
+                    className="glow-button inline-flex items-center gap-2 rounded-full border border-[var(--border-soft)] bg-[var(--badge-bg)] px-4 py-2 text-sm text-[var(--brand-2)]"
                   >
-                    <social.icon className="h-4 w-4" />
+                    <social.icon className="icon-highlight h-4 w-4" />
                     {social.label}
                   </a>
                 ))}
@@ -500,7 +549,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-6 sm:p-8">
+          <div className="tilt-card rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-6 sm:p-8">
             <h3 className="text-2xl font-semibold text-[var(--text-1)]">
               {t(UI_TEXT.sendMessage)}
             </h3>
@@ -537,7 +586,7 @@ export default function HomePage() {
               </div>
               <Button
                 type="submit"
-                className="w-full rounded-full bg-[var(--brand-1)] py-3 text-white hover:bg-[var(--brand-2)]"
+                className="glow-button w-full rounded-full bg-[var(--brand-1)] py-3 text-white hover:bg-[var(--brand-2)]"
               >
                 {t(UI_TEXT.sendMessage)}
               </Button>
@@ -557,7 +606,7 @@ export default function HomePage() {
               <a
                 key={social.label}
                 href={social.href}
-                className="hover:text-[var(--brand-2)]"
+                className="fancy-nav-link hover:text-[var(--brand-2)]"
                 target="_blank"
                 rel="noreferrer noopener"
               >

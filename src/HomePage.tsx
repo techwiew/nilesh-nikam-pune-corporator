@@ -109,7 +109,7 @@ export default function HomePage() {
         <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <button
             className="flex items-center gap-3 text-left"
-            onClick={() => scrollToSection('home')}
+            onClick={() => scrollToSection("home")}
             aria-label="Go to home section"
           >
             <img
@@ -118,8 +118,12 @@ export default function HomePage() {
               className="h-10 w-10 rounded-full object-cover"
             />
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-[var(--text-2)]">{t(LEADER_INFO.party)}</p>
-              <p className="font-serif text-lg font-semibold text-[var(--brand-2)]">{t(LEADER_INFO.name)}</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-[var(--text-2)]">
+                {t(LEADER_INFO.party)}
+              </p>
+              <p className="font-serif text-lg font-semibold text-[var(--brand-2)]">
+                {t(LEADER_INFO.name)}
+              </p>
             </div>
           </button>
 
@@ -142,7 +146,9 @@ export default function HomePage() {
                 className="flex items-center gap-2 rounded-full border border-[var(--border-soft)] px-3 py-2 text-sm text-[var(--text-2)]"
               >
                 <Globe className="h-4 w-4" />
-                <span>{languages.find((l) => l.code === language)?.nativeName}</span>
+                <span>
+                  {languages.find((l) => l.code === language)?.nativeName}
+                </span>
                 <ChevronDown className="h-4 w-4" />
               </button>
               {langDropdownOpen && (
@@ -152,10 +158,10 @@ export default function HomePage() {
                       key={lang.code}
                       onClick={() => setLanguage(lang.code)}
                       className={cn(
-                        'w-full rounded-xl px-3 py-2 text-left text-sm transition',
+                        "w-full rounded-xl px-3 py-2 text-left text-sm transition",
                         language === lang.code
-                          ? 'bg-[var(--badge-bg)] text-[var(--brand-2)]'
-                          : 'text-[var(--text-2)] hover:bg-[var(--badge-bg)]',
+                          ? "bg-[var(--badge-bg)] text-[var(--brand-2)]"
+                          : "text-[var(--text-2)] hover:bg-[var(--badge-bg)]",
                       )}
                     >
                       {lang.nativeName}
@@ -170,7 +176,11 @@ export default function HomePage() {
               className="rounded-full border border-[var(--border-soft)] p-2 text-[var(--text-2)] transition hover:bg-[var(--badge-bg)]"
               aria-label="Toggle theme"
             >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {isDark ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
             </button>
           </div>
 
@@ -179,7 +189,11 @@ export default function HomePage() {
             className="rounded-full border border-[var(--border-soft)] p-2 text-[var(--text-2)] md:hidden"
             aria-label="Toggle mobile navigation"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
 
@@ -201,10 +215,10 @@ export default function HomePage() {
                     key={lang.code}
                     onClick={() => setLanguage(lang.code)}
                     className={cn(
-                      'rounded-xl px-3 py-2 text-sm',
+                      "rounded-xl px-3 py-2 text-sm",
                       language === lang.code
-                        ? 'bg-[var(--badge-bg)] text-[var(--brand-2)]'
-                        : 'text-[var(--text-2)]',
+                        ? "bg-[var(--badge-bg)] text-[var(--brand-2)]"
+                        : "text-[var(--text-2)]",
                     )}
                   >
                     {lang.nativeName}
@@ -216,18 +230,17 @@ export default function HomePage() {
         )}
       </nav>
 
-      <div className="relative h-[70vh] w-full overflow-hidden md:h-[80vh] lg:h-[85vh]">
-        <img
-          src="/images/profile-banner.jpg"
-          alt="Profile banner"
-          className="h-full w-full object-cover object-top"
+      <div className="relative mt-16 w-full overflow-hidden md:mt-16">
+        <div
+          className="h-[60vw] w-full bg-[url('/images/profile-banner.jpg')] bg-no-repeat bg-cover md:h-[50vw] lg:h-[40vw]"
+          style={{ backgroundPosition: "top 35%" }}
         />
-        <div className="absolute inset-0 bg-black/15" />
+        <div className="absolute inset-0 bg-black/10 md:bg-black/15" />
       </div>
 
       <section
         id="home"
-        className="relative overflow-hidden px-4 pt-10 pb-16 sm:px-6 lg:px-10 xl:px-16"
+        className="relative overflow-hidden px-4 pt-2 pb-8 sm:px-6 lg:px-8 xl:px-10"
       >
         <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-2">
           <div className="hero-fade-up">
@@ -247,14 +260,14 @@ export default function HomePage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => scrollToSection("contact")}
                 size="lg"
                 className="rounded-full bg-[var(--brand-1)] px-7 text-white hover:bg-[var(--brand-2)]"
               >
                 {t(UI_TEXT.sendMessage)}
               </Button>
               <Button
-                onClick={() => scrollToSection('about')}
+                onClick={() => scrollToSection("about")}
                 variant="outline"
                 size="lg"
                 className="rounded-full border-[var(--brand-1)] px-7 text-[var(--brand-2)] hover:bg-[var(--badge-bg)]"
@@ -269,8 +282,12 @@ export default function HomePage() {
                   key={stat.value}
                   className="rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-4"
                 >
-                  <p className="text-2xl font-bold text-[var(--brand-2)]">{stat.value}</p>
-                  <p className="text-sm text-[var(--text-2)]">{t(stat.label)}</p>
+                  <p className="text-2xl font-bold text-[var(--brand-2)]">
+                    {stat.value}
+                  </p>
+                  <p className="text-sm text-[var(--text-2)]">
+                    {t(stat.label)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -284,15 +301,22 @@ export default function HomePage() {
                 className="h-[460px] w-full rounded-[1.6rem] object-cover"
               />
               <div className="absolute bottom-8 left-1/2 w-[calc(100%-3rem)] -translate-x-1/2 rounded-2xl bg-[color:color-mix(in_srgb,var(--card-bg),transparent_8%)] p-4 backdrop-blur-sm">
-                <p className="text-sm font-semibold text-[var(--brand-2)]">{t(LEADER_INFO.party)}</p>
-                <p className="text-lg font-semibold text-[var(--text-1)]">{t(LEADER_INFO.name)}</p>
+                <p className="text-sm font-semibold text-[var(--brand-2)]">
+                  {t(LEADER_INFO.party)}
+                </p>
+                <p className="text-lg font-semibold text-[var(--text-1)]">
+                  {t(LEADER_INFO.name)}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="about" className="border-y border-[var(--border-soft)] bg-[var(--section-bg)] px-4 py-16 sm:px-6 lg:px-8">
+      <section
+        id="about"
+        className="border-y border-[var(--border-soft)] bg-[var(--section-bg)] px-4 py-16 sm:px-6 lg:px-8"
+      >
         <div className="mx-auto w-full max-w-6xl">
           <h2 className="font-serif text-3xl font-semibold text-[var(--text-1)] sm:text-4xl">
             {t(ABOUT_SECTION.title)}
@@ -319,8 +343,12 @@ export default function HomePage() {
                   <div className="mb-4 inline-flex rounded-2xl bg-[var(--badge-bg)] p-3 text-[var(--brand-2)]">
                     <IssueIcon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-xl font-semibold text-[var(--text-1)]">{t(issue.title)}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[var(--text-2)]">{t(issue.description)}</p>
+                  <h3 className="text-xl font-semibold text-[var(--text-1)]">
+                    {t(issue.title)}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-[var(--text-2)]">
+                    {t(issue.description)}
+                  </p>
                 </article>
               );
             })}
@@ -345,8 +373,12 @@ export default function HomePage() {
                   className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-6"
                 >
                   <AchievementIcon className="h-6 w-6 text-[var(--brand-2)]" />
-                  <h3 className="mt-3 text-xl font-semibold text-[var(--text-1)]">{t(achievement.title)}</h3>
-                  <p className="mt-2 text-sm leading-7 text-[var(--text-2)]">{t(achievement.description)}</p>
+                  <h3 className="mt-3 text-xl font-semibold text-[var(--text-1)]">
+                    {t(achievement.title)}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-[var(--text-2)]">
+                    {t(achievement.description)}
+                  </p>
                 </article>
               );
             })}
@@ -356,13 +388,20 @@ export default function HomePage() {
 
       <section id="vision" className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-7xl rounded-3xl border border-[var(--border-soft)] bg-[linear-gradient(125deg,var(--hero-start),var(--hero-mid),var(--hero-end))] p-8 sm:p-10">
-          <h2 className="font-serif text-3xl font-semibold text-[var(--text-1)] sm:text-4xl">{t(VISION.title)}</h2>
+          <h2 className="font-serif text-3xl font-semibold text-[var(--text-1)] sm:text-4xl">
+            {t(VISION.title)}
+          </h2>
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {VISION.points.map((point, index) => (
-              <div key={index} className="rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
+              <div
+                key={index}
+                className="rounded-2xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5"
+              >
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--brand-2)]" />
-                  <p className="text-sm leading-7 text-[var(--text-2)]">{t(point)}</p>
+                  <p className="text-sm leading-7 text-[var(--text-2)]">
+                    {t(point)}
+                  </p>
                 </div>
               </div>
             ))}
@@ -370,9 +409,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="gallery" className="border-y border-[var(--border-soft)] bg-[var(--section-bg)] px-4 py-16 sm:px-6 lg:px-8">
+      <section
+        id="gallery"
+        className="border-y border-[var(--border-soft)] bg-[var(--section-bg)] px-4 py-16 sm:px-6 lg:px-8"
+      >
         <div className="mx-auto w-full max-w-7xl">
-          <h2 className="font-serif text-3xl font-semibold text-[var(--text-1)] sm:text-4xl">{t(GALLERY.title)}</h2>
+          <h2 className="font-serif text-3xl font-semibold text-[var(--text-1)] sm:text-4xl">
+            {t(GALLERY.title)}
+          </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {GALLERY.images.map((image, index) => (
               <figure
@@ -406,7 +450,9 @@ export default function HomePage() {
               </p>
               <div className="mt-3 flex items-start gap-3">
                 <MapPin className="mt-1 h-5 w-5 text-[var(--brand-2)]" />
-                <p className="text-sm leading-7 text-[var(--text-2)]">{t(CONTACT_INFO.office.value)}</p>
+                <p className="text-sm leading-7 text-[var(--text-2)]">
+                  {t(CONTACT_INFO.office.value)}
+                </p>
               </div>
             </div>
 
@@ -416,7 +462,9 @@ export default function HomePage() {
               </p>
               <div className="mt-3 flex items-start gap-3">
                 <MapPin className="mt-1 h-5 w-5 text-[var(--brand-2)]" />
-                <p className="text-sm leading-7 text-[var(--text-2)]">{t(CONTACT_INFO.constituency.value)}</p>
+                <p className="text-sm leading-7 text-[var(--text-2)]">
+                  {t(CONTACT_INFO.constituency.value)}
+                </p>
               </div>
             </div>
 
@@ -425,21 +473,31 @@ export default function HomePage() {
                 <div className="mb-2 inline-flex rounded-xl bg-[var(--badge-bg)] p-2 text-[var(--brand-2)]">
                   <Phone className="h-4 w-4" />
                 </div>
-                <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-2)]">{t(UI_TEXT.phone)}</p>
-                <p className="mt-1 text-sm font-semibold text-[var(--text-1)]">{CONTACT_INFO.phone}</p>
+                <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-2)]">
+                  {t(UI_TEXT.phone)}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-[var(--text-1)]">
+                  {CONTACT_INFO.phone}
+                </p>
               </div>
 
               <div className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
                 <div className="mb-2 inline-flex rounded-xl bg-[var(--badge-bg)] p-2 text-[var(--brand-2)]">
                   <Mail className="h-4 w-4" />
                 </div>
-                <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-2)]">{t(UI_TEXT.email)}</p>
-                <p className="mt-1 text-sm font-semibold text-[var(--text-1)]">{CONTACT_INFO.email}</p>
+                <p className="text-xs uppercase tracking-[0.1em] text-[var(--text-2)]">
+                  {t(UI_TEXT.email)}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-[var(--text-1)]">
+                  {CONTACT_INFO.email}
+                </p>
               </div>
             </div>
 
             <div className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-5">
-              <p className="mb-3 text-sm font-semibold text-[var(--text-1)]">{t(UI_TEXT.followUs)}</p>
+              <p className="mb-3 text-sm font-semibold text-[var(--text-1)]">
+                {t(UI_TEXT.followUs)}
+              </p>
               <div className="flex flex-wrap gap-2">
                 {socialLinks.map((social) => (
                   <a
@@ -458,10 +516,14 @@ export default function HomePage() {
           </div>
 
           <div className="rounded-3xl border border-[var(--border-soft)] bg-[var(--card-bg)] p-6 sm:p-8">
-            <h3 className="text-2xl font-semibold text-[var(--text-1)]">{t(UI_TEXT.sendMessage)}</h3>
+            <h3 className="text-2xl font-semibold text-[var(--text-1)]">
+              {t(UI_TEXT.sendMessage)}
+            </h3>
             <form className="mt-6 space-y-5">
               <div>
-                <label className="mb-2 block text-sm text-[var(--text-2)]">{t(UI_TEXT.yourName)}</label>
+                <label className="mb-2 block text-sm text-[var(--text-2)]">
+                  {t(UI_TEXT.yourName)}
+                </label>
                 <input
                   type="text"
                   className="w-full rounded-2xl border border-[var(--border-soft)] bg-transparent px-4 py-3 text-[var(--text-1)] outline-none transition focus:border-[var(--brand-1)]"
@@ -469,7 +531,9 @@ export default function HomePage() {
                 />
               </div>
               <div>
-                <label className="mb-2 block text-sm text-[var(--text-2)]">{t(UI_TEXT.yourEmail)}</label>
+                <label className="mb-2 block text-sm text-[var(--text-2)]">
+                  {t(UI_TEXT.yourEmail)}
+                </label>
                 <input
                   type="email"
                   className="w-full rounded-2xl border border-[var(--border-soft)] bg-transparent px-4 py-3 text-[var(--text-1)] outline-none transition focus:border-[var(--brand-1)]"
@@ -477,7 +541,9 @@ export default function HomePage() {
                 />
               </div>
               <div>
-                <label className="mb-2 block text-sm text-[var(--text-2)]">{t(UI_TEXT.message)}</label>
+                <label className="mb-2 block text-sm text-[var(--text-2)]">
+                  {t(UI_TEXT.message)}
+                </label>
                 <textarea
                   rows={5}
                   className="w-full resize-none rounded-2xl border border-[var(--border-soft)] bg-transparent px-4 py-3 text-[var(--text-1)] outline-none transition focus:border-[var(--brand-1)]"
@@ -498,11 +564,18 @@ export default function HomePage() {
       <footer className="border-t border-[var(--border-soft)] bg-[var(--section-bg)] px-4 py-6 sm:px-6 lg:px-8">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 text-sm text-[var(--text-2)] sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; {new Date().getFullYear()} {t(LEADER_INFO.name)}. {t(UI_TEXT.allRightsReserved)}
+            &copy; {new Date().getFullYear()} {t(LEADER_INFO.name)}.{" "}
+            {t(UI_TEXT.allRightsReserved)}
           </p>
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => (
-              <a key={social.label} href={social.href} className="hover:text-[var(--brand-2)]" target="_blank" rel="noreferrer noopener">
+              <a
+                key={social.label}
+                href={social.href}
+                className="hover:text-[var(--brand-2)]"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 {social.label}
               </a>
             ))}
